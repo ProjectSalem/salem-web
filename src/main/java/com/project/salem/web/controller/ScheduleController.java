@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.salem.model.DailySchedule;
 import com.project.salem.repository.ScheduleRepository;
+import com.project.salem.web.ServletInitializer;
 
 @Controller
 public class ScheduleController {
@@ -30,19 +31,20 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST)
-	public ModelAndView addSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("schedule");
-		String pageTitle = "Schedule";
-		ArrayList<DailySchedule> weeklySchedule = scheduleRepository.getAllSchedule();
-		
+	public void addSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String day = request.getParameter("day");
 		String time = request.getParameter("time");
 		
-		System.out.println(day + " ---"  + time);
+		String[] b1 = time.split(" ");
+		String[] b2 = b1[0].split(":");
+		if(b1[1].equals("PM")) b2[0] = String.valueOf(Integer.valueOf((b2[0]) + 12) % 24);
+		time = new String(b2[0] + ":" + b2[1] + ":" + b2[2]);
 		
-		mav.addObject("weeklySchedule", weeklySchedule);
-		mav.addObject("pageTitle", pageTitle);	
-		return mav;
+		scheduleRepository.addNewSchedule(Integer.valueOf(day), time);
+		
+		ServletInitializer.restartScheduler();
+		
+		response.sendRedirect("schedule");		
 	}
 	
 }
