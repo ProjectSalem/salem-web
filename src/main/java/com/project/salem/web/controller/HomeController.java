@@ -21,7 +21,7 @@ public class HomeController {
 	public static ModelAndView index(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return new ModelAndView("404");
+			return new ModelAndView("403");
 		}
 		
 		ModelAndView mav = new ModelAndView("home");

@@ -47,13 +47,27 @@ public class ScheduleRepository extends GenericRepository {
 			st.setString(2, time);
 			
 			st.executeUpdate();
-			System.out.println("query:\t" + st.toString());
 			conn.close();
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
 		
+	}
+
+	public void deleteSchedule(int id) {
+		PreparedStatement st;
+		try {
+			Connection conn = getConnection();								
+			st = conn.prepareStatement("DELETE FROM schedule WHERE id = ?");
+			st.setInt(1, id);
+			
+			st.executeUpdate();
+			conn.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -14,7 +14,7 @@ public class ContactController {
 	public ModelAndView contact(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return new ModelAndView("404");
+			return new ModelAndView("403");
 		}
 		
 		ModelAndView mav = new ModelAndView("contact");

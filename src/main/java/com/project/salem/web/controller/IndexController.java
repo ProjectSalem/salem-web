@@ -44,7 +44,7 @@ public class IndexController {
 				session = request.getSession(true);
 				mav = HomeController.index(request);
 			} else {
-				mav = new ModelAndView("404");
+				mav = new ModelAndView("403");
 			}
 		}
 		else {

@@ -24,7 +24,7 @@ public class ScheduleController {
 	public ModelAndView schedule(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			return new ModelAndView("404");
+			return new ModelAndView("403");
 		}
 		
 		ModelAndView mav = new ModelAndView("schedule");
@@ -37,7 +37,7 @@ public class ScheduleController {
 	}
 	
 	@RequestMapping(value = "/addSchedule", method = RequestMethod.POST)
-	public void addSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView addSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			String day = request.getParameter("day");
@@ -45,15 +45,63 @@ public class ScheduleController {
 			
 			String[] b1 = time.split(" ");
 			String[] b2 = b1[0].split(":");
-			if(b1[1].equals("PM")) b2[0] = String.valueOf(Integer.valueOf((b2[0]) + 12) % 24);
+			if(b1[1].equals("PM")){
+				b2[0] = String.valueOf((Integer.valueOf(b2[0]) + 12) % 24);
+			}
+			if(b2[0].length() < 2) b2[0] = "0" + b2[0];
 			time = new String(b2[0] + ":" + b2[1] + ":" + b2[2]);
 			
 			scheduleRepository.addNewSchedule(Integer.valueOf(day), time);
 			
 			ServletInitializer.restartScheduler();
 			
-			response.sendRedirect("schedule");		
 		}
+		return schedule(request);	
 	}
+	
+	@RequestMapping(value = "/deleteSchedule", method = RequestMethod.POST)
+	public ModelAndView deleteSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession(false);
+		if (session != null) {
+			String id = request.getParameter("id");
+			id = id.split("_")[1];
+			
+			scheduleRepository.deleteSchedule(Integer.valueOf(id));
+			
+			ServletInitializer.restartScheduler();
+			
+		}
+		return schedule(request);	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

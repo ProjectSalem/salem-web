@@ -52,7 +52,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 					int second = Integer.valueOf(time[2]);
 					
 					DayOfWeek today = LocalDate.now().getDayOfWeek();
-					SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
+					SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
 					String nowTimeStr = format.format(System.currentTimeMillis());
 					
 					LocalDate next = LocalDate.now().with(TemporalAdjusters.next(ds.getDayOfTheWeek()));
