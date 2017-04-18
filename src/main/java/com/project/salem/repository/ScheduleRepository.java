@@ -18,7 +18,7 @@ public class ScheduleRepository extends GenericRepository {
 		PreparedStatement st;
 		try {
 			Connection conn = getConnection();
-			st = conn.prepareStatement("select * from schedule order by id");
+			st = conn.prepareStatement("SELECT * FROM schedule ORDER BY ID");
 			ResultSet rs = st.executeQuery();
 			
 			while (rs.next()) {
@@ -42,7 +42,7 @@ public class ScheduleRepository extends GenericRepository {
 		PreparedStatement st;
 		try {
 			Connection conn = getConnection();								
-			st = conn.prepareStatement("insert into schedule set day_of_week = ? , time = ?");
+			st = conn.prepareStatement("INSERT INTO schedule SET day_of_week = ? , time = ?");
 			st.setString(1, String.valueOf(day));
 			st.setString(2, time);
 			
