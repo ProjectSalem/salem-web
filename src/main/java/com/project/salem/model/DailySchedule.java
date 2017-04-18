@@ -2,6 +2,7 @@ package com.project.salem.model;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DailySchedule {
 
@@ -28,6 +29,10 @@ public class DailySchedule {
 
 	public void add(Schedule s){
 		this.list.add(s);
+	}
+	
+	public void sort(){
+		Collections.sort(list);
 	}
 	
 }

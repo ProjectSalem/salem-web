@@ -30,6 +30,7 @@ public class ScheduleController {
 		ModelAndView mav = new ModelAndView("schedule");
 		String pageTitle = "Schedule";
 		ArrayList<DailySchedule> weeklySchedule = scheduleRepository.getAllSchedule();
+		for(DailySchedule ds : weeklySchedule) ds.sort();
 		
 		mav.addObject("weeklySchedule", weeklySchedule);
 		mav.addObject("pageTitle", pageTitle);	
@@ -40,18 +41,18 @@ public class ScheduleController {
 	public ModelAndView addSchedule(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
+			String id = request.getParameter("id");
 			String day = request.getParameter("day");
 			String time = request.getParameter("time");
 			
-			String[] b1 = time.split(" ");
-			String[] b2 = b1[0].split(":");
-			if(b1[1].equals("PM")){
-				b2[0] = String.valueOf((Integer.valueOf(b2[0]) + 12) % 24);
-			}
-			if(b2[0].length() < 2) b2[0] = "0" + b2[0];
-			time = new String(b2[0] + ":" + b2[1] + ":" + b2[2]);
+			if(time.split(" ")[0].split(":")[0].length() < 2) time = "0" + time;
 			
-			scheduleRepository.addNewSchedule(Integer.valueOf(day), time);
+			if (id.isEmpty() || id.equals(null)) {
+				scheduleRepository.addNewSchedule(Integer.valueOf(day), time);
+			} else {
+				int schId = Integer.valueOf(id.split("_")[1]);
+				scheduleRepository.editSchedule(schId, Integer.valueOf(day), time);
+			}
 			
 			ServletInitializer.restartScheduler();
 			

@@ -79,11 +79,11 @@
 																		</td>
 																		<td>
 																			<div th:each="schedule : ${dailySchedule.list}" class="btn-group" style="padding-right: 10px">
-																				<a th:text="${schedule.time}" class="btn btn-sm btn-circle sbold green" href="" data-toggle="dropdown" aria-expanded="false">
+																				<a th:text="${schedule.time}" class="btn btn-sm btn-circle sbold green time" href="" data-toggle="dropdown" aria-expanded="false">
 																					<i class="fa fa-clock-o"></i><i class="fa fa-angle-down"></i>
 																				</a>
 																				<ul class="dropdown-menu">
-																					<li><a class="edit" th:id="'edit_' + ${schedule.id}" href=""><i class="fa fa-pencil"></i> Edit </a></li>
+																					<li><a class="edit" th:id="'edit_' + ${schedule.id}"><i class="fa fa-pencil"></i> Edit </a></li>
 																					<li><a class="delete" th:id="'delete_' + ${schedule.id}" href=""><i class="fa fa-trash-o"></i> Delete </a></li>
 																				</ul>
 																			</div>
@@ -121,6 +121,7 @@
 						<div class="modal-body">
 							<form class="form-horizontal">
 								<div class="form-group">
+									<span id="scheduleID" style="display:none"></span>
 									<label class="control-label col-md-4">Day: </label>
 									<div class="col-md-8">
 										<select id="modalDay" class="bs-select form-control">
@@ -139,7 +140,7 @@
 									<div class="col-md-8">
 										<div class="input-icon">
 											<i class="fa fa-clock-o"></i> 
-											<input id="modalTime" type="text" class="form-control timepicker timepicker-default">
+											<input id="modalTime" type="text" class="form-control timepicker timepicker-24">
 										</div>
 									</div>
 								</div>

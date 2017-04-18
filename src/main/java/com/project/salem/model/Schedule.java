@@ -1,6 +1,6 @@
 package com.project.salem.model;
 
-public class Schedule {
+public class Schedule implements Comparable<Schedule> {
 	
 	private int id;
 	private String time;
@@ -35,6 +35,7 @@ public class Schedule {
 		result = prime * result + ((time == null) ? 0 : time.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -53,9 +54,15 @@ public class Schedule {
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "Schedule [id=" + id + ", time=" + time + "]";
 	}
 
+	@Override
+	public int compareTo(Schedule s) {
+		return time.compareTo(s.getTime());
+	}
+	
 }

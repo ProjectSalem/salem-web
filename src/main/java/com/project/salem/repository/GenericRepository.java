@@ -11,7 +11,7 @@ public class GenericRepository {
 	private final String db_username="root";
 	private final String db_password="123456";
 	private final String db_path = "jdbc:mysql://localhost:3306/salem";
-	private final String db_params = "?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	private final String db_params = "?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	
 	public Connection getConnection() throws Exception {
 		Class.forName(driver).newInstance();

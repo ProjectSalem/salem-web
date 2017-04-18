@@ -69,5 +69,22 @@ public class ScheduleRepository extends GenericRepository {
 			e.printStackTrace();
 		}
 	}
+
+	public void editSchedule(int id, int day, String time) {
+		PreparedStatement st;
+		try {
+			Connection conn = getConnection();								
+			st = conn.prepareStatement("UPDATE schedule SET day_of_week = ? , time = ? WHERE id = ?");
+			st.setString(1, String.valueOf(day));
+			st.setString(2, time);
+			st.setString(3,  String.valueOf(id));
+			
+			st.executeUpdate();
+			conn.close();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 }
