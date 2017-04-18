@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,31 +17,13 @@ public class HomeController {
 	
 //	SerialTest serialTest;
 	
-	@RequestMapping("/")
-	public ModelAndView login() {
-		ModelAndView mav = new ModelAndView("index");
-		return mav;
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView authenticate(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		ModelAndView mav = null;
-		
-		if(username.equals("1234") && password.equals("1234")){
-			response.sendRedirect("home");		
-		}
-		else {
-			mav = new ModelAndView("index");
-		}
-		
-		return mav;
-	}
-	
 	@RequestMapping("/home")
-	public ModelAndView index() throws Exception {
+	public static ModelAndView index(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return new ModelAndView("404");
+		}
+		
 		ModelAndView mav = new ModelAndView("home");
 		String pageTitle = "Salem Home";
 		String hostName = InetAddress.getLocalHost().getHostAddress() + ":9091";

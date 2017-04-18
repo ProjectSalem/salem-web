@@ -69,27 +69,26 @@
 									    			<div class="panel-group accordion" id="accordion">
 														<div th:each="dailySchedule : ${weeklySchedule}" th:id="'day_' + ${dailySchedule.dayOfTheWeek}" class="panel panel-default">
 															<div class="panel-heading">
-																<h4 class="panel-title">
-																	<a th:text="${dailySchedule.dayOfTheWeek}" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="'#collapse_' + ${dailySchedule.dayOfTheWeek}"></a>
-																</h4>
-															</div>
-															<div th:id="'collapse_' + ${dailySchedule.dayOfTheWeek}" class="panel-collapse collapse">
-																<div class="panel-body">
-																	<div class="table-scrollable table-scrollable-borderless">
-			                                                            <table class="table table-hover table-light">
-				                                                            <thead>
-			                                                                    <tr class="uppercase">
-			                                                                        <th> # </th>
-			                                                                        <th> Time </th>
-			                                                                    </tr>
-			                                                                </thead>
-		                                                                    <tr th:each="schedule : ${dailySchedule.list}">
-		                                                                        <td th:text="${schedule.id}"></td>
-		                                                                        <td><span th:text="${schedule.time}" class="label label-sm label-success"></span></td>
-		                                                                    </tr>
-			                                                            </table>
-                                                       				</div>
-																</div>
+																<table>
+																	<tr>
+																		<td style="width:250px; padding-left: 0px; padding-right: 80px">
+																			<h4 class="panel-title">
+																				<a th:text="${dailySchedule.dayOfTheWeek}" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="'#collapse_' + ${dailySchedule.dayOfTheWeek}"></a>
+																			</h4>
+																		</td>
+																		<td>
+																			<div th:each="schedule : ${dailySchedule.list}" class="btn-group" style="padding-right: 10px">
+																				<a th:text="${schedule.time}" class="btn btn-sm btn-circle sbold green" href="" data-toggle="dropdown" aria-expanded="false">
+																					<i class="fa fa-clock-o"></i><i class="fa fa-angle-down"></i>
+																				</a>
+																				<ul class="dropdown-menu">
+																					<li><a href=""><i class="fa fa-pencil"></i> Edit </a></li>
+																					<li><a href=""><i class="fa fa-trash-o"></i> Delete </a></li>
+																				</ul>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
 															</div>
 														</div>	
 													</div>
